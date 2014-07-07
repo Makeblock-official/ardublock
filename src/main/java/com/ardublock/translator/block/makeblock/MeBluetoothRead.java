@@ -16,11 +16,13 @@ public class MeBluetoothRead extends TranslatorBlock {
 		translator.addHeaderFile("SoftwareSerial.h");
 		translator.addHeaderFile("Wire.h");
 		TranslatorBlock block = this.getRequiredTranslatorBlockAtSocket(0);
-		String ret = "MeBluetooth bluetooth"+block.toCode()+"(PORT_"+block.toCode()+");";
+		String port = block.toCode();
+		String ret = "MeBluetooth bluetooth"+port+"(PORT_"+port+");";
 		translator.addDefinitionCommand(ret);
-		translator.addSetupCommand("bluetooth"+block.toCode()+".begin(9600);");
-		TranslatorBlock dataBlock = this.getRequiredTranslatorBlockAtSocket(1);
-		TranslatorBlock execBlock = this.getTranslatorBlockAtSocket(2);
+		block = this.getRequiredTranslatorBlockAtSocket(1);
+		translator.addSetupCommand("bluetooth"+port+".begin("+block.toCode()+");");
+		TranslatorBlock dataBlock = this.getRequiredTranslatorBlockAtSocket(2);
+		TranslatorBlock execBlock = this.getTranslatorBlockAtSocket(3);
 		String exec = "";
 		if(execBlock!=null){
 			while (execBlock != null)
@@ -29,7 +31,7 @@ public class MeBluetoothRead extends TranslatorBlock {
 				execBlock = execBlock.nextTranslatorBlock();
 			}
 		}
-		return dataBlock.toCode()+"= bluetooth"+block.toCode()+".read();\nif("+dataBlock.toCode()+">-1){\n\t"+exec+"\n}\n";
+		return "if(bluetooth"+port+".available()){\n\t"+dataBlock.toCode()+"= bluetooth"+port+".read();\nif("+dataBlock.toCode()+">-1){\n\t"+exec+"\n}\n}\n";
 	}
 
 }

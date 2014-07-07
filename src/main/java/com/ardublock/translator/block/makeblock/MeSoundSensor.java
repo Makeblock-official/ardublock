@@ -4,9 +4,9 @@ import com.ardublock.translator.block.TranslatorBlock;
 import com.ardublock.translator.block.exception.SocketNullException;
 import com.ardublock.translator.block.exception.SubroutineNotDeclaredException;
 
-public class MeBluetoothWrite extends TranslatorBlock {
+public class MeSoundSensor extends TranslatorBlock {
 
-	public MeBluetoothWrite(Long blockId, Translator translator, String codePrefix, String codeSuffix, String label) {
+	public MeSoundSensor(Long blockId, Translator translator, String codePrefix, String codeSuffix, String label) {
 		super(blockId, translator, codePrefix, codeSuffix, label);
 	}
 
@@ -15,14 +15,10 @@ public class MeBluetoothWrite extends TranslatorBlock {
 		translator.addHeaderFile("Makeblock.h");
 		translator.addHeaderFile("SoftwareSerial.h");
 		translator.addHeaderFile("Wire.h");
-		TranslatorBlock block = this.getRequiredTranslatorBlockAtSocket(0);
-		String port = block.toCode();
-		String ret = "MeBluetooth bluetooth"+port+"(PORT_"+port+");";
+		TranslatorBlock translatorBlock = this.getRequiredTranslatorBlockAtSocket(0);
+		String ret = "MeSoundSensor soundSensor"+translatorBlock.toCode()+"(PORT_"+translatorBlock.toCode()+");";
 		translator.addDefinitionCommand(ret);
-		block = this.getRequiredTranslatorBlockAtSocket(1);
-		translator.addSetupCommand("bluetooth"+port+".begin("+block.toCode()+");");
-		TranslatorBlock dataBlock = this.getRequiredTranslatorBlockAtSocket(2);
-		return "bluetooth"+port+".print("+dataBlock.toCode()+");\n";
+		return "soundSensor"+translatorBlock.toCode()+".strength()";
 	}
 
 }

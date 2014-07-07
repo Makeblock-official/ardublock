@@ -1,5 +1,7 @@
 package com.ardublock.translator.block.makeblock;
 
+import org.jfree.util.Log;
+
 import com.ardublock.translator.Translator;
 import com.ardublock.translator.block.TranslatorBlock;
 import com.ardublock.translator.block.exception.SocketNullException;

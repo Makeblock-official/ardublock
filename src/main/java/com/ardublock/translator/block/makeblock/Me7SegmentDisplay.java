@@ -1,12 +1,13 @@
 package com.ardublock.translator.block.makeblock;
+
 import com.ardublock.translator.Translator;
 import com.ardublock.translator.block.TranslatorBlock;
 import com.ardublock.translator.block.exception.SocketNullException;
 import com.ardublock.translator.block.exception.SubroutineNotDeclaredException;
 
-public class MeLineFinder extends TranslatorBlock {
+public class Me7SegmentDisplay extends TranslatorBlock {
 
-	public MeLineFinder(Long blockId, Translator translator, String codePrefix, String codeSuffix, String label) {
+	public Me7SegmentDisplay(Long blockId, Translator translator, String codePrefix, String codeSuffix, String label) {
 		super(blockId, translator, codePrefix, codeSuffix, label);
 	}
 
@@ -15,10 +16,17 @@ public class MeLineFinder extends TranslatorBlock {
 		translator.addHeaderFile("Makeblock.h");
 		translator.addHeaderFile("SoftwareSerial.h");
 		translator.addHeaderFile("Wire.h");
-		TranslatorBlock translatorBlock = this.getRequiredTranslatorBlockAtSocket(0);
-		String ret = "MeLineFinder lineFinder"+translatorBlock.toCode()+"(PORT_"+translatorBlock.toCode()+");";
+		TranslatorBlock block = this.getRequiredTranslatorBlockAtSocket(0);
+		String sevseg = "sevseg"+block.toCode();
+		
+		block = this.getRequiredTranslatorBlockAtSocket(1);
+		String port = block.toCode();
+
+		block = this.getRequiredTranslatorBlockAtSocket(2);
+		String num = block.toCode();
+		String ret = "Me7SegmentDisplay "+sevseg+"(PORT_"+port+");";
 		translator.addDefinitionCommand(ret);
-		return "lineFinder"+translatorBlock.toCode()+".readSensors()";
+		return sevseg+".display("+num+");";
 	}
 
 }

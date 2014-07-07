@@ -1,12 +1,13 @@
 package com.ardublock.translator.block.makeblock;
+
 import com.ardublock.translator.Translator;
 import com.ardublock.translator.block.TranslatorBlock;
 import com.ardublock.translator.block.exception.SocketNullException;
 import com.ardublock.translator.block.exception.SubroutineNotDeclaredException;
 
-public class MeBluetoothWrite extends TranslatorBlock {
+public class MeRGBLed extends TranslatorBlock {
 
-	public MeBluetoothWrite(Long blockId, Translator translator, String codePrefix, String codeSuffix, String label) {
+	public MeRGBLed(Long blockId, Translator translator, String codePrefix, String codeSuffix, String label) {
 		super(blockId, translator, codePrefix, codeSuffix, label);
 	}
 
@@ -16,13 +17,25 @@ public class MeBluetoothWrite extends TranslatorBlock {
 		translator.addHeaderFile("SoftwareSerial.h");
 		translator.addHeaderFile("Wire.h");
 		TranslatorBlock block = this.getRequiredTranslatorBlockAtSocket(0);
+		String led = "led"+block.toCode();
+		
 		String port = block.toCode();
-		String ret = "MeBluetooth bluetooth"+port+"(PORT_"+port+");";
-		translator.addDefinitionCommand(ret);
+
 		block = this.getRequiredTranslatorBlockAtSocket(1);
-		translator.addSetupCommand("bluetooth"+port+".begin("+block.toCode()+");");
-		TranslatorBlock dataBlock = this.getRequiredTranslatorBlockAtSocket(2);
-		return "bluetooth"+port+".print("+dataBlock.toCode()+");\n";
+		String indexLed = block.toCode();
+
+		block = this.getRequiredTranslatorBlockAtSocket(2);
+		String r = block.toCode();
+
+		block = this.getRequiredTranslatorBlockAtSocket(3);
+		String g = block.toCode();
+
+		block = this.getRequiredTranslatorBlockAtSocket(4);
+		String b = block.toCode();
+		
+		String ret = "MeRGBLed "+led+"(PORT_"+port+");";
+		translator.addDefinitionCommand(ret);
+		return led+".setColorAt("+indexLed+","+r+","+g+","+b+");\n"+led+".show();";
 	}
 
 }
