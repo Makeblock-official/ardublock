@@ -17,12 +17,11 @@ public class Me7SegmentDisplay extends TranslatorBlock {
 		translator.addHeaderFile("SoftwareSerial.h");
 		translator.addHeaderFile("Wire.h");
 		TranslatorBlock block = this.getRequiredTranslatorBlockAtSocket(0);
+		String port = block.toCode();
 		String sevseg = "sevseg"+block.toCode();
 		
-		block = this.getRequiredTranslatorBlockAtSocket(1);
-		String port = block.toCode();
 
-		block = this.getRequiredTranslatorBlockAtSocket(2);
+		block = this.getRequiredTranslatorBlockAtSocket(1);
 		String num = block.toCode();
 		String ret = "Me7SegmentDisplay "+sevseg+"(PORT_"+port+");";
 		translator.addDefinitionCommand(ret);

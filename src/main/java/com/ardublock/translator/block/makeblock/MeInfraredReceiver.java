@@ -24,14 +24,14 @@ public class MeInfraredReceiver extends TranslatorBlock {
 		TranslatorBlock dataBlock = this.getRequiredTranslatorBlockAtSocket(1);
 		TranslatorBlock keyDownBlock = getTranslatorBlockAtSocket(2);
 		TranslatorBlock keyUpBlock = getTranslatorBlockAtSocket(3);
-		ret = "\nif(infraredReceiver"+translatorBlock.toCode()+".buttonState()==1){\n"+dataBlock.toCode()+"=infraredReceiver"+translatorBlock.toCode()+".read();\n";
+		ret = "\nif(infraredReceiver"+translatorBlock.toCode()+".buttonState()==1){\n if(infraredReceiver"+translatorBlock.toCode()+".available()){\n"+dataBlock.toCode()+"=infraredReceiver"+translatorBlock.toCode()+".read();\n";
 		String exec = "";
 		while (keyDownBlock != null)
 		{
 			exec += "\t"+ keyDownBlock.toCode()+"\n";
 			keyDownBlock = keyDownBlock.nextTranslatorBlock();
 		}
-		ret += "\n"+exec+"\n}else{\n";
+		ret += "\n"+exec+"\n}\n}else{\n";
 		exec = "";
 		while (keyUpBlock != null)
 		{

@@ -24,21 +24,11 @@ public class MeServoDriver extends TranslatorBlock {
 		String servo = "servoDriver"+port;
 		block = this.getRequiredTranslatorBlockAtSocket(1);
 		String device = block.toCode();
-		int deviceId = 1;
-		if(block instanceof NumberBlock){
-			deviceId = Integer.parseInt(block.toCode());
-			if(deviceId>2||deviceId<1){
-				throw new BlockException(this.blockId, "the Device Id of Servo must be in Range(1,2)");
-			}
-			deviceId = deviceId>=2?2:(deviceId<1?1:deviceId);
-			device = ""+deviceId;
-		}else{
-			device = "1";
-		}
+		
 		String ret = "Servo "+servo+";";
 		translator.addDefinitionCommand(ret);
 
-		translator.addSetupCommand("int pinName = "+(deviceId==1?"mePort["+port+"].s1;":"mePort["+port+"].s2;"));
+		translator.addSetupCommand("int pinName = "+(device.equals("1")?"mePort["+port+"].s1;":"mePort["+port+"].s2;"));
 		translator.addSetupCommand(servo+".attach(pinName);");
 		String output = "";
 		block = this.getRequiredTranslatorBlockAtSocket(2);

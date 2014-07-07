@@ -20,7 +20,7 @@ public class MeJoystick extends TranslatorBlock {
 		translator.addDefinitionCommand(ret);
 
 		TranslatorBlock axis = this.getRequiredTranslatorBlockAtSocket(1);
-		return "joystick"+translatorBlock.toCode()+(axis.toCode().indexOf("x")>-1?".readX();":".readY();");
+		return "joystick"+translatorBlock.toCode()+(axis.toCode().indexOf("x")>-1?".readX()":".readY()");
 	}
 
 }

@@ -35,6 +35,8 @@ public class MeRGBLed extends TranslatorBlock {
 		
 		String ret = "MeRGBLed "+led+"(PORT_"+port+");";
 		translator.addDefinitionCommand(ret);
+		translator.addSetupCommand(led+".clear();\n");
+		
 		return led+".setColorAt("+indexLed+","+r+","+g+","+b+");\n"+led+".show();";
 	}
 
