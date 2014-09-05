@@ -161,7 +161,22 @@ public class OpenblocksFrame extends JFrame
 			    URL url;
 			    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
 			        try {
-						url = new URL("http://ardublock.com");
+						url = new URL("http://bbs.makeblock.cc");
+			            desktop.browse(url.toURI());
+			        } catch (Exception e1) {
+			            e1.printStackTrace();
+			        }
+			    }
+			}
+		});
+		JButton checkButton = new JButton(uiMessageBundle.getString("ardublock.ui.checkupdate"));
+		checkButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+			    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+			    URL url;
+			    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+			        try {
+						url = new URL("http://bbs.makeblock.cc");
 			            desktop.browse(url.toURI());
 			        } catch (Exception e1) {
 			            e1.printStackTrace();
@@ -172,6 +187,7 @@ public class OpenblocksFrame extends JFrame
 		JLabel versionLabel = new JLabel("v " + uiMessageBundle.getString("ardublock.ui.version"));
 		
 		bottomPanel.add(saveImageButton);
+		bottomPanel.add(checkButton);
 		bottomPanel.add(websiteButton);
 		bottomPanel.add(versionLabel);
 
