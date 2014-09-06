@@ -1,22 +1,31 @@
 package com.ardublock.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +33,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.ardublock.core.Context;
 import com.ardublock.ui.listener.ArdublockWorkspaceListener;
@@ -54,6 +72,7 @@ public class OpenblocksFrame extends JFrame
 	public void addListener(OpenblocksFrameListener ofl)
 	{
 		context.registerOpenblocksFrameListener(ofl);
+		
 	}
 	
 	public String makeFrameTitle()
@@ -161,7 +180,12 @@ public class OpenblocksFrame extends JFrame
 			    URL url;
 			    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
 			        try {
-						url = new URL("http://bbs.makeblock.cc");
+			        	Locale locale = Locale.getDefault();  
+			        	if(locale.getLanguage().equals("zh")){
+			        		url = new URL("http://bbs.makeblock.cc/?from=ardublock");
+			        	}else{
+			        		url = new URL("http://forum.makeblock.cc/#ardublock");
+			        	}
 			            desktop.browse(url.toURI());
 			        } catch (Exception e1) {
 			            e1.printStackTrace();
@@ -172,18 +196,14 @@ public class OpenblocksFrame extends JFrame
 		JButton checkButton = new JButton(uiMessageBundle.getString("ardublock.ui.checkupdate"));
 		checkButton.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-			    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-			    URL url;
-			    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-			        try {
-						url = new URL("http://bbs.makeblock.cc");
-			            desktop.browse(url.toURI());
-			        } catch (Exception e1) {
-			            e1.printStackTrace();
-			        }
-			    }
+				try {
+					parseXml("https://raw.githubusercontent.com/Makeblock-official/ardublock/master/config/version.xml");
+		        } catch (Exception e1) {
+		            e1.printStackTrace();
+		        }
 			}
 		});
+		
 		JLabel versionLabel = new JLabel("v " + uiMessageBundle.getString("ardublock.ui.version"));
 		
 		bottomPanel.add(saveImageButton);
@@ -196,7 +216,107 @@ public class OpenblocksFrame extends JFrame
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		this.add(workspace, BorderLayout.CENTER);
 	}
-	
+	private String lastVersion = null;
+	private String lastFile = null;
+	public void parseXml(String fileName) {
+	       try {
+	           DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	           DocumentBuilder builder = factory.newDocumentBuilder();
+	           Document document = builder.parse(fileName);
+	           // 1.获得文档根元素对对象;
+	           Element root = document.getDocumentElement();
+	           // 获得文档根元素下一级子元素所有元素;
+	           NodeList nodeList = root.getChildNodes();
+	           System.out.println(root.getNodeName());
+	           if (null != root) {
+	              for (int i = 0; i < nodeList.getLength(); i++) {
+	                  Node child = nodeList.item(i);
+	                  for (Node node = child.getFirstChild(); node != null; node = node .getNextSibling()) {
+		                  if (node.getNodeType() == Node.ELEMENT_NODE) {
+		                       if ("file".equals(node.getNodeName())) {
+		                    	   lastFile = node.getFirstChild().getNodeValue();
+		                       }else if ("version".equals(node.getNodeName())) {
+		                    	   lastVersion=node.getFirstChild().getNodeValue();
+			                   }
+		                   }
+	                  }
+	              }
+	              JDialog dialog = new JDialog();
+        		  dialog.setTitle(uiMessageBundle.getString("ardublock.ui.checkupdate"));
+        		  dialog.setBounds(this.getBounds().x+this.getBounds().width/2-100, this.getBounds().y+this.getBounds().height/2-50, 280, 140);
+        		  dialog.setVisible(true);
+        		  dialog.setResizable(false);
+        		  JLabel label = new JLabel();
+        		  label.setHorizontalAlignment(JLabel.CENTER);
+        		  JButton updateButton = new JButton(uiMessageBundle.getString("ardublock.ui.updatenow"));
+        			updateButton.addActionListener(new ActionListener () {
+        				public void actionPerformed(ActionEvent e) {
+        					Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        				    URL url;
+        				    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+        				        try {
+        							url = new URL(lastFile);
+        				            desktop.browse(url.toURI());
+        				        } catch (Exception e1) {
+        				            e1.printStackTrace();
+        				        }
+        				    }
+        				}
+        			});
+          			Container pane = dialog.getContentPane();
+					if(lastVersion!=null&&lastFile!=null){
+						  if(!lastVersion.equals(uiMessageBundle.getString("ardublock.ui.version"))){
+							label.setText(uiMessageBundle.getString("ardublock.ui.versionmessage"));
+							pane.add(updateButton);
+			        		  label.setBounds(18, 20, 240, 40);
+						  }else{
+							  label.setText(uiMessageBundle.getString("ardublock.ui.noversionmessage"));
+			        		  label.setBounds(18, 30, 240, 40);
+						  }
+						  System.out.print("version:"+lastVersion+" current:"+uiMessageBundle.getString("ardublock.ui.version")+"\r\n");
+						  System.out.print("file:"+lastFile);
+					}else{
+		        		  label.setBounds(18, 30, 240, 40);
+						  label.setText(uiMessageBundle.getString("ardublock.ui.noversionmessage"));
+					}
+							
+	      			pane.setLayout(null);
+	      			updateButton.setBounds(50, 66, 100, 28);
+	      			pane.add(label);
+	           }
+	       } catch (ParserConfigurationException e) {
+
+	           e.printStackTrace();
+
+	       } catch (IOException e) {
+
+	           e.printStackTrace();
+
+	       } catch (SAXException e) {
+
+	           e.printStackTrace();
+
+	       }
+
+	    }
+	public void savexmlUrl(String xmlUrl) {
+		   try {
+		    URL url = new URL(xmlUrl);
+		    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		    conn.connect();
+		    InputStream stream = conn.getInputStream();
+		    BufferedReader reader = new BufferedReader(new InputStreamReader(
+		      stream, "UTF-8"));
+		    StringBuffer document = new StringBuffer();
+		    String line = null;
+		    while ((line = reader.readLine()) != null) {
+		     document.append(line);
+		    }
+		    System.out.println(document);
+		   }catch(Exception e){
+			   
+		   }
+	}
 	public void doOpenArduBlockFile()
 	{
 		if (context.isWorkspaceChanged())

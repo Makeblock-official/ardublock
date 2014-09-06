@@ -6643,6 +6643,7 @@
 				<BlockGenusMember>variable_number_double</BlockGenusMember>
 				<BlockGenusMember>number_double</BlockGenusMember>
 			</BlockDrawer>
+			<!--
 			<BlockDrawer button-color="205 133 63" name="bd.utilities" type="factory">
 				<BlockGenusMember>servo_default</BlockGenusMember>
 				<BlockGenusMember>ultrasonic</BlockGenusMember>
@@ -6651,7 +6652,7 @@
 				<BlockGenusMember>LCD_PLL_Sainsmart_16by2</BlockGenusMember>
 				<BlockGenusMember>number-single-I2C-address</BlockGenusMember>
 				<BlockGenusMember>number-single-fixed-parallel</BlockGenusMember>
-			</BlockDrawer>
+			</BlockDrawer>-->
 			<BlockDrawer button-color="255 255 255" name="bd.communication" type="factory">
 				<BlockGenusMember>serial_read</BlockGenusMember>
 				<BlockGenusMember>serial_read_poly</BlockGenusMember>
@@ -6694,6 +6695,10 @@
 				<BlockGenusMember>bleshield_available</BlockGenusMember>
 				<BlockGenusMember>bleshield_read_poly</BlockGenusMember>	
 			</BlockDrawer>
+			
+			
+			<!--
+			
 			<BlockDrawer button-color="120 120 120" name="bd.especial" type="factory">
 				<BlockGenusMember>code_head</BlockGenusMember>
 				<BlockGenusMember>code_setup</BlockGenusMember>
@@ -6837,7 +6842,7 @@
 				<BlockGenusMember>ada_dc_motor_fwd</BlockGenusMember>
 				<BlockGenusMember>ada_dc_motor_bwd</BlockGenusMember>
 				<BlockGenusMember>ada_dc_motor_release</BlockGenusMember>
-			</BlockDrawer>
+			</BlockDrawer>-->
 			<BlockDrawer button-color="0 177 236" name="bd.makeblock" type="factory">
 				<BlockGenusMember>me_motordriver</BlockGenusMember>
 				<BlockGenusMember>me_servodriver</BlockGenusMember>
@@ -6881,7 +6886,6 @@
 				<BlockGenusMember>ws_danger</BlockGenusMember>
 				<BlockGenusMember>ws_binoculars</BlockGenusMember>
 			</BlockDrawer>
-			 -->
 			<BlockDrawer button-color="64 109 0" name="bd.insectbot">
 			    <BlockGenusMember>insectbot_get_distance</BlockGenusMember>
 			    <BlockGenusMember>insectbot_is_indanger</BlockGenusMember>
@@ -6921,9 +6925,8 @@
 
 
 			</BlockDrawer>
-
+-->
 			
-			<!-- littlebits -->
 						<BlockDrawer button-color="93 13 125" name="bd.littlebits">
 						    <BlockGenusMember>little_bits_bendsensor</BlockGenusMember>
 						    <BlockGenusMember>little_bits_button</BlockGenusMember>
@@ -6958,7 +6961,6 @@
 						    <BlockGenusMember>little_bits_vibration_motor</BlockGenusMember>
 						    <BlockGenusMember>little_bits_synthspeaker</BlockGenusMember>
 						</BlockDrawer>
-			
 			<!--
 			<BlockDrawer button-color="135 206 235" name="bd.linksprite_LinkerKit">
 				<BlockGenusMember>ls_10mmLEDModule</BlockGenusMember>
@@ -6985,8 +6987,6 @@
 				<BlockGenusMember>ls_TiltModule</BlockGenusMember>
 				<BlockGenusMember>ls_TouchSensorModule</BlockGenusMember>
 			</BlockDrawer>
-			-->
-			<!--
 			<BlockDrawer button-color="0 255 0" name="XinChejian" type="factory">
 				<BlockGenusMember>xcj_motor_forward</BlockGenusMember>
 				<BlockGenusMember>xcj_motor_backward</BlockGenusMember> 
