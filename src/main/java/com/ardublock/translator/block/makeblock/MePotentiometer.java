@@ -18,7 +18,7 @@ public class MePotentiometer extends TranslatorBlock {
 		TranslatorBlock translatorBlock = this.getRequiredTranslatorBlockAtSocket(0);
 		String ret = "MePotentiometer potentiometer"+translatorBlock.toCode()+"(PORT_"+translatorBlock.toCode()+");";
 		translator.addDefinitionCommand(ret);
-		return "potentiometer"+translatorBlock.toCode()+".read()";
+		return codePrefix + "potentiometer"+translatorBlock.toCode()+".read()"+codePrefix;
 	}
 
 }

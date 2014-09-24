@@ -39,7 +39,7 @@ public class MeInfraredReceiver extends TranslatorBlock {
 			keyUpBlock = keyUpBlock.nextTranslatorBlock();
 		}
 		ret += "\n"+exec+"\n};\n";
-		return ret;
+		return codePrefix+ret+codeSuffix;
 	}
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update>
      <win>
-         <version>1.0.3</version>
-		 <file>https://raw.githubusercontent.com/Makeblock-official/ardublock/master/installer/arduino_v1.0.5r2.exe</file>
+         <version>1.0.4</version>
+		 <file>https://raw.githubusercontent.com/Makeblock-official/ardublock/master/installer/arduino_v1.0.6.exe</file>
      </win>
 </update>

@@ -18,7 +18,7 @@ public class MeSoundSensor extends TranslatorBlock {
 		TranslatorBlock translatorBlock = this.getRequiredTranslatorBlockAtSocket(0);
 		String ret = "MeSoundSensor soundSensor"+translatorBlock.toCode()+"(PORT_"+translatorBlock.toCode()+");";
 		translator.addDefinitionCommand(ret);
-		return "soundSensor"+translatorBlock.toCode()+".strength()";
+		return codePrefix + "soundSensor"+translatorBlock.toCode()+".strength()"+codePrefix;
 	}
 
 }

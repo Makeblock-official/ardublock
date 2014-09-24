@@ -18,7 +18,7 @@ public class MeLineFollower extends TranslatorBlock {
 		TranslatorBlock translatorBlock = this.getRequiredTranslatorBlockAtSocket(0);
 		String ret = "MeLineFollower lineFollower"+translatorBlock.toCode()+"(PORT_"+translatorBlock.toCode()+");";
 		translator.addDefinitionCommand(ret);
-		return "lineFollower"+translatorBlock.toCode()+".readSensors()";
+		return codePrefix+"lineFollower"+translatorBlock.toCode()+".readSensors()"+codeSuffix;
 	}
 
 }

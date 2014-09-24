@@ -18,7 +18,7 @@ public class MeLightSensor extends TranslatorBlock {
 		TranslatorBlock translatorBlock = this.getRequiredTranslatorBlockAtSocket(0);
 		String ret = "MeLightSensor lightSensor"+translatorBlock.toCode()+"(PORT_"+translatorBlock.toCode()+");";
 		translator.addDefinitionCommand(ret);
-		return "lightSensor"+translatorBlock.toCode()+".strength()";
+		return codePrefix + "lightSensor"+translatorBlock.toCode()+".strength()"+codeSuffix;
 	}
 
 }

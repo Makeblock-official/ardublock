@@ -31,7 +31,7 @@ public class MeBluetoothRead extends TranslatorBlock {
 				execBlock = execBlock.nextTranslatorBlock();
 			}
 		}
-		return "if(bluetooth"+port+".available()){\n\t"+dataBlock.toCode()+"= bluetooth"+port+".read();\nif("+dataBlock.toCode()+">-1){\n\t"+exec+"\n}\n}\n";
+		return codePrefix+"if(bluetooth"+port+".available()){\n\t"+dataBlock.toCode()+"= bluetooth"+port+".read();\nif("+dataBlock.toCode()+">-1){\n\t"+exec+"\n}\n}\n"+codeSuffix;
 	}
 
 }

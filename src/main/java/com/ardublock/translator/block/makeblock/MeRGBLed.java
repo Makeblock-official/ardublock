@@ -37,7 +37,7 @@ public class MeRGBLed extends TranslatorBlock {
 		translator.addDefinitionCommand(ret);
 		translator.addSetupCommand(led+".clear();\n");
 		
-		return led+".setColorAt("+indexLed+","+r+","+g+","+b+");\n"+led+".show();";
+		return codePrefix+led+".setColorAt("+indexLed+","+r+","+g+","+b+");\n"+led+".show();"+codeSuffix;
 	}
 
 }

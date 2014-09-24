@@ -30,7 +30,7 @@ public class MeBluetoothCommands extends TranslatorBlock {
 		}
 		ret += "\n"+exec+"\n};\n";
 		    
-		return ret;
+		return codePrefix+ret+codeSuffix;
 	}
 
 }

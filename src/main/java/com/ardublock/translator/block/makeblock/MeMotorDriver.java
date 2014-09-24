@@ -35,7 +35,7 @@ public class MeMotorDriver extends TranslatorBlock {
 				return motor+".run("+speed+");\n";
 			}
 		}else{
-			return motor+".run("+block.toCode()+");\n";
+			return codePrefix+motor+".run("+block.toCode()+");\n"+codeSuffix;
 		}
 		
 	}

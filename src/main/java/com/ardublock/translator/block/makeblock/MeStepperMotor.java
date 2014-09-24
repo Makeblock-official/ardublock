@@ -34,7 +34,7 @@ public class MeStepperMotor extends TranslatorBlock {
 		}
 		ret += exec+"\n}";
 		    
-		return ret;
+		return codePrefix+ret+codeSuffix;
 	}
 
 }

@@ -21,7 +21,7 @@ public class MeBluetoothCommand extends TranslatorBlock {
 		translator.addSetupCommand("bluetooth"+block.toCode()+".begin(9600);");
 		TranslatorBlock paramName = this.getRequiredTranslatorBlockAtSocket(1);
 		
-		return "bluetooth"+block.toCode()+".getParamValue(\""+paramName.toCode().replace("\"","")+"\")";
+		return codePrefix+"bluetooth"+block.toCode()+".getParamValue(\""+paramName.toCode().replace("\"","")+"\")"+codeSuffix;
 	}
 
 }

@@ -20,7 +20,7 @@ public class MeShutter extends TranslatorBlock {
 		translator.addDefinitionCommand(ret);
 		TranslatorBlock state = this.getRequiredTranslatorBlockAtSocket(1);
 		int stateId = Integer.parseInt(state.toCode());
-		return "\tshutter"+translatorBlock.toCode()+(stateId==1?".shotOn()":(stateId==2?".shotOff()":(stateId==3?".focusOn()":".focusOff()")))+";\n";
+		return codePrefix+"\tshutter"+translatorBlock.toCode()+(stateId==1?".shotOn()":(stateId==2?".shotOff()":(stateId==3?".focusOn()":".focusOff()")))+";\n"+codeSuffix;
 	}
 
 }

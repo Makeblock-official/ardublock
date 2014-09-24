@@ -21,7 +21,7 @@ public class MeLimitSwitch extends TranslatorBlock {
 		String slot = slotBlock.toCode();
 		String ret = "MeLimitSwitch switch"+translatorBlock.toCode()+"(PORT_"+translatorBlock.toCode()+","+slot+");";
 		translator.addDefinitionCommand(ret);
-		return "switch"+translatorBlock.toCode()+".touched()";
+		return codePrefix + "switch"+translatorBlock.toCode()+".touched()"+codeSuffix;
 	}
 
 }

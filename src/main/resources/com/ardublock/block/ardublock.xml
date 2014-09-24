@@ -4787,7 +4787,7 @@
 				<BlockConnector connector-type="number" connector-kind="socket" label="bc.slot_number">
 					<DefaultArg genus-name="me_slot_1" label="bg.me_slot_1" />
 				</BlockConnector>
-				<BlockConnector connector-type="number" connector-kind="plug"/>
+				<BlockConnector connector-type="boolean" connector-kind="plug"/>
 			</BlockConnectors>
 			<Images>
 				<Image>
@@ -4969,7 +4969,7 @@
 					<DefaultArg genus-name="me_port_3" label="bg.me_port_3" />
 					
 				</BlockConnector>
-				<BlockConnector connector-type="number" connector-kind="plug" />
+				<BlockConnector connector-type="boolean" connector-kind="plug" />
 			</BlockConnectors>
 			<Images>
 				<Image>

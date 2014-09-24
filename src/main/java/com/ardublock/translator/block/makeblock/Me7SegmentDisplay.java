@@ -25,7 +25,7 @@ public class Me7SegmentDisplay extends TranslatorBlock {
 		String num = block.toCode();
 		String ret = "Me7SegmentDisplay "+sevseg+"(PORT_"+port+");";
 		translator.addDefinitionCommand(ret);
-		return sevseg+".display("+num+");";
+		return codePrefix+sevseg+".display("+num+");"+codeSuffix;
 	}
 
 }

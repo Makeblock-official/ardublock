@@ -22,7 +22,7 @@ public class MeBluetoothWrite extends TranslatorBlock {
 		block = this.getRequiredTranslatorBlockAtSocket(1);
 		translator.addSetupCommand("bluetooth"+port+".begin("+block.toCode()+");");
 		TranslatorBlock dataBlock = this.getRequiredTranslatorBlockAtSocket(2);
-		return "bluetooth"+port+".print("+dataBlock.toCode()+");\n";
+		return codePrefix+"bluetooth"+port+".print("+dataBlock.toCode()+");\n"+codeSuffix;
 	}
 
 }

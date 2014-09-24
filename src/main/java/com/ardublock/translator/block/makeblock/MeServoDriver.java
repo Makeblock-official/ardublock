@@ -42,7 +42,7 @@ public class MeServoDriver extends TranslatorBlock {
 		}else{
 			output+= servo+".write("+block.toCode()+");\n";
 		}
-		return output;
+		return codePrefix+output+codeSuffix;
 	}
 
 }

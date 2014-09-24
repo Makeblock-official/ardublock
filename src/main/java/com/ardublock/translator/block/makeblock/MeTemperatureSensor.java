@@ -21,7 +21,7 @@ public class MeTemperatureSensor extends TranslatorBlock {
 		String slot = slotBlock.toCode();
 		String ret = "MeTemperature temperature"+translatorBlock.toCode()+"(PORT_"+translatorBlock.toCode()+","+slot+");";
 		translator.addDefinitionCommand(ret);
-		return "temperature"+translatorBlock.toCode()+".temperature()";
+		return codePrefix + "temperature"+translatorBlock.toCode()+".temperature()"+codeSuffix;
 	}
 
 }

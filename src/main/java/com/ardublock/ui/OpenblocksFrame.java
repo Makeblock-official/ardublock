@@ -241,7 +241,7 @@ public class OpenblocksFrame extends JFrame
 		                   }
 	                  }
 	              }
-	              JDialog dialog = new JDialog();
+	              final JDialog dialog = new JDialog();
         		  dialog.setTitle(uiMessageBundle.getString("ardublock.ui.checkupdate"));
         		  dialog.setBounds(this.getBounds().x+this.getBounds().width/2-100, this.getBounds().y+this.getBounds().height/2-50, 280, 140);
         		  dialog.setVisible(true);
@@ -257,6 +257,7 @@ public class OpenblocksFrame extends JFrame
         				        try {
         							url = new URL(lastFile);
         				            desktop.browse(url.toURI());
+        				            dialog.setVisible(false);
         				        } catch (Exception e1) {
         				            e1.printStackTrace();
         				        }
@@ -281,7 +282,7 @@ public class OpenblocksFrame extends JFrame
 					}
 							
 	      			pane.setLayout(null);
-	      			updateButton.setBounds(50, 66, 100, 28);
+	      			updateButton.setBounds(85, 66, 100, 28);
 	      			pane.add(label);
 	           }
 	       } catch (ParserConfigurationException e) {

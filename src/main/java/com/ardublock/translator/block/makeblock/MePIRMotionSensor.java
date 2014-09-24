@@ -18,7 +18,7 @@ public class MePIRMotionSensor extends TranslatorBlock {
 		TranslatorBlock translatorBlock = this.getRequiredTranslatorBlockAtSocket(0);
 		String ret = "MePIRMotionSensor pirMotion"+translatorBlock.toCode()+"(PORT_"+translatorBlock.toCode()+");";
 		translator.addDefinitionCommand(ret);
-		return "pirMotion"+translatorBlock.toCode()+".isPeopleDetected()";
+		return codePrefix + "pirMotion"+translatorBlock.toCode()+".isPeopleDetected()"+codeSuffix;
 	}
 
 }
